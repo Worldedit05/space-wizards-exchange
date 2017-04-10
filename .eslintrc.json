@@ -5,8 +5,8 @@
         "jsx-a11y",
         "import"
     ],
-    "linebreak-style": [
-      "error",
-      "windows"
-    ]
+    "rules": {
+      "linebreak-style": 0,
+      "import/no-extraneous-dependencies": 0
+    }
 }
