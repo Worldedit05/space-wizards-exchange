@@ -1,11 +1,10 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 import App from './components/App';
 import NotFound from './components/NotFound';
 
-const Routes = (props) => (
+const Routes = () => (
   <BrowserRouter>
     <Switch>
       <Route path="/" exact component={App} />

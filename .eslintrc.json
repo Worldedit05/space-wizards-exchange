@@ -1,7 +1,17 @@
 {
+    "ecmaFeatures": {
+      "jsx": true,
+      "module": true
+    },
+    "env": {
+      "browser": true,
+      "mocha": true,
+      "node": true
+    },
     "extends": "airbnb-base",
     "plugins": [
-        "import"
+        "import",
+        "react"
     ],
     "parserOptions": {
         "ecmaVersion": 6,
@@ -12,6 +22,11 @@
     },
     "rules": {
       "linebreak-style": 0,
-      "no-console": 0
+      "no-console": 0,
+      "strict": [2, "never"],
+      "react/jsx-uses-react": 2,
+      "react/jsx-uses-vars": 2,
+      "react/react-in-jsx-scope": 2,
+      "arrow-parens": ["error", "always"]
     }
 }
