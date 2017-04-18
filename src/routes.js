@@ -5,12 +5,15 @@ import App from './components/App';
 import NotFound from './components/NotFound';
 
 const Routes = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route path="/" exact component={App} />
-      <Route component={NotFound} />
-    </Switch>
-  </BrowserRouter>
+    <Router>
+      <div>
+        <Route component={NavBar} />
+        <Switch>
+          <Route exact path="/" component={App} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
+    </ Router>
 );
 
 export default Routes;
