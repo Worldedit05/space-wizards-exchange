@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import classnames from 'classnames';
 
 import logo from './logo.svg';
@@ -8,15 +9,13 @@ class App extends Component {
   render() {
     const { className } = this.props;
     return (
-      <div className={classnames('App', className)}>
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/components/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Grid>
+        <Row>
+          <Col xs={12} sm={3} md={2} lg={1}>
+            Hello, world!
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }
