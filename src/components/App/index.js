@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
-import classnames from 'classnames';
+// import classnames from 'classnames';
 
-import logo from './logo.svg';
 import './style.css';
 
 class App extends Component {

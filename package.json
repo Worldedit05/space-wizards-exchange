@@ -5,13 +5,14 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "express": "^4.15.2",
+    "material-ui": "^0.17.4",
     "morgan": "^1.8.1",
     "react": "^15.5.3",
     "react-dom": "^15.5.3",
     "react-flexbox-grid": "^1.0.2",
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0",
-    "react-toolbox": "^2.0.0-beta.8"
+    "react-tap-event-plugin": "^2.0.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
