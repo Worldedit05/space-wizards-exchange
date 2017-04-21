@@ -1,8 +1,11 @@
 const exec = require('mz/child_process').exec;
-const request = require('supertest-as-promised');
-const expect = require('chai').expect;
+const chai = require('chai');
+const { expect } = require('chai');
+const chaiHttp = require('chai-http');
 
 const app = require('../server/app');
+
+chai.use(chaiHttp);
 
 /* eslint func-names: ["error", "never"] */
 describe('builds application', () => {
@@ -14,26 +17,33 @@ describe('builds application', () => {
 });
 
 describe('express serving', () => {
-  it('respond to / with the index.html', () => {
-    request(app)
+  it('respond to / with the index.html', (done) => {
+    chai.request(app)
       .get('/')
-      .expect('Content-Type', /html/)
-      .expect(200)
-      .then((res) => expect(res.text).to.contain('<div id="root"></div>'));
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.text).to.contain('<div id="root"></div>');
+        done();
+      });
   });
 
-  it('responds to favicon.icon request', () => {
-    request(app)
-      .get('/favicon.ico')
-      .expect('Content-Type', 'image/x-icon')
-      .expect(200);
-  });
-
-  it('respnds to any route with the index.html', () => {
-    request(app)
+  it('respnds to any route with the index.html', (done) => {
+    chai.request(app)
       .get('/foo/bar')
-      .expect('Content-Type', /html/)
-      .expect(200)
-      .then((res) => expect(res.text).to.contain('<div id="root"></div>'));
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.text).to.contain('<div id="root"></div>');
+        done();
+      });
+  });
+
+  it('responds to favicon.icon request', (done) => {
+    chai.request(app)
+      .get('/')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect('Content-Type', 'image/x-icon');
+        done();
+      });
   });
 });

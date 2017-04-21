@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "chai-http": "^3.0.0",
     "classnames": "^2.2.5",
     "express": "^4.15.2",
     "material-ui": "^0.17.4",
@@ -25,8 +26,7 @@
     "mz": "^2.6.0",
     "nodemon": "^1.11.0",
     "react-scripts": "0.9.5",
-    "supertest": "^3.0.0",
-    "supertest-as-promised": "^4.0.2"
+    "supertest": "^3.0.0"
   },
   "scripts": {
     "start": "concurrently --kill-others \"npm run watch:client\" \"npm run watch:server\"",

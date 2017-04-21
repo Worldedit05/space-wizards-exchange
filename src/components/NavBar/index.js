@@ -3,7 +3,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 import FontIcon from 'material-ui/FontIcon';
 
-import style from './style.css';
+import style from './style.css'; /* eslint no-unused-vars: 0*/
 
 export default class ToolbarExamplesSimple extends React.Component {
 
@@ -23,7 +23,11 @@ export default class ToolbarExamplesSimple extends React.Component {
         </ToolbarGroup>
         <ToolbarGroup>
           <ToolbarSeparator />
-          <FlatButton label="Login" primary={true} labelPosition="before" icon={<FontIcon className="material-icons">call_to_action</FontIcon>}/>
+          <FlatButton
+            label="Login"
+            primary={true}
+            labelPosition="before"
+            icon={<FontIcon className="material-icons">call_to_action</FontIcon>}/>
         </ ToolbarGroup>
       </Toolbar>
     );

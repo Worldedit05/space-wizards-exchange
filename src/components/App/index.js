@@ -6,7 +6,7 @@ import './style.css';
 
 class App extends Component {
   render() {
-    const { className } = this.props;
+    const { className } = this.props; /* eslint no-unused-vars: 0*/
     return (
       <Grid>
         <Row>
