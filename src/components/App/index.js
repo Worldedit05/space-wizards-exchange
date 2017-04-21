@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
-// import classnames from 'classnames';
+
+import Card from '../Card';
+import SearchBar from '../SearchBar';
 
 import './style.css';
 
@@ -10,8 +12,11 @@ class App extends Component {
     return (
       <Grid>
         <Row>
-          <Col xs={12} sm={3} md={2} lg={1}>
-            Hello, world!
+          <Col xs={12} sm={8} md={6} lg={4}>
+            <Card />
+          </Col>
+          <Col xs={12} sm={8} md={6} lg={4}>
+            <SearchBar />
           </Col>
         </Row>
       </Grid>
