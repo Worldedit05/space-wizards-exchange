@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 
 import style from './style.css'; /* eslint no-unused-vars: 0*/
 
-export default class ToolbarExamplesSimple extends React.Component {
+export default class NavBar extends React.Component {
 
   constructor(props) {
     super(props);

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 
-import Card from '../Card';
 import SearchBar from '../SearchBar';
 
 import './style.css';
