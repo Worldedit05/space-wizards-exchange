@@ -2,6 +2,7 @@ import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 import FontIcon from 'material-ui/FontIcon';
+import { NavLink } from 'react-router-dom';
 
 import style from './style.css'; /* eslint no-unused-vars: 0*/
 
@@ -19,7 +20,9 @@ export default class ToolbarExamplesSimple extends React.Component {
     return (
       <Toolbar className="appBar">
         <ToolbarGroup>
-          <ToolbarTitle text="Star Wars Destiny Trader" className="title"/>
+          <NavLink to="/" style={{ textDecoration: 'none' }}>
+            <ToolbarTitle text="Star Wars Destiny Trader" className="title"/>
+          </NavLink>
         </ToolbarGroup>
         <ToolbarGroup>
           <ToolbarSeparator />
