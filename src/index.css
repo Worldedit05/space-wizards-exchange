@@ -25,3 +25,5 @@ body {
   font-family: sans-serif;
   /*background-color: #dcdee1;*/
 }
+
+.container { padding: 1rem; }

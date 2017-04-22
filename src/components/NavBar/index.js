@@ -1,4 +1,5 @@
 import React from 'react';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import FlatButton from 'material-ui/FlatButton';
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 import FontIcon from 'material-ui/FontIcon';
@@ -27,6 +28,7 @@ export default class ToolbarExamplesSimple extends React.Component {
         <ToolbarGroup>
           <ToolbarSeparator />
           <FlatButton
+            style={{ margin: '0' }}
             label="Login"
             primary={true}
             labelPosition="before"

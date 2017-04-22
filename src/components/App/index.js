@@ -19,7 +19,7 @@ class App extends Component {
   render() {
     const { className } = this.props; /* eslint no-unused-vars: 0*/
     return (
-      <Grid>
+      <Grid fluid>
         <Row>
           <Col xs={12} sm={12} md={12} lg={12}>
             <Paper style={style} zDepth={0} rounded>
