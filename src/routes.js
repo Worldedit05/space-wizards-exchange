@@ -12,7 +12,8 @@ const Routes = () => (
         <Route component={NavBar} />
         <Switch>
           <Route path="/" exact component={App} />
-          <Route path="/user/:username" component={Profile} />
+          <Route exact path="/user/:username" component={Profile} />
+          <Route exact path="/user/:username/edit" component={Profile} />
           <Route component={NotFound} />
         </Switch>
       </div>
