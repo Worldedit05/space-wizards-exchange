@@ -9,7 +9,7 @@ const ProfileCard = () => (
   <Card style={{ marginTop: '50px', paddingTop: '25px' }}>
     <Grid fluid>
       <Row>
-        <Col xs>
+        <Col xs={6} sm={4} md={4} lg={4}>
         <CardMedia overlay={<CardTitle title="Worldedit" />}>
             <img src="http://placehold.it/300x300" />
           </ CardMedia>
