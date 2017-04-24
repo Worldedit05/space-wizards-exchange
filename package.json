@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bluebird": "^3.5.0",
     "chai-http": "^3.0.0",
     "classnames": "^2.2.5",
     "express": "^4.15.2",
     "material-ui": "^0.17.4",
+    "mongoose": "^4.9.5",
     "morgan": "^1.8.1",
     "react": "^15.5.3",
     "react-dom": "^15.5.3",
