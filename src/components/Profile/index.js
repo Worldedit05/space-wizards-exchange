@@ -7,7 +7,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import Card from '../ProfileCard';
 
-/*eslint class-methods-use-this: 0 */
+/* eslint class-methods-use-this: 0 */
 export default class Profile extends Component {
   constructor(props) {
     super(props);
@@ -18,18 +18,18 @@ export default class Profile extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    console.log('Edit button has been clicked!');
+    console.log('Clicked!');
   }
 
   render() {
     const { match, location, history } = this.props;
-    console.log(location);
+
     return (
       <Grid fluid>
         <Row>
           <Col xs={0} sm={1} md={2} lg={2} />
           <Col xs>
-            <Card />
+            <Card onClick={this.handleClick} />
           </Col>
           <Col xs={0} sm={1} md={2} lg={2} />
         </Row>

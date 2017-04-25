@@ -5,12 +5,12 @@ import { List, ListItem } from 'material-ui/List';
 import FontIcon from 'material-ui/FontIcon';
 import Divider from 'material-ui/Divider';
 
-const ProfileCard = () => (
+const ProfileCard = (props) => (
   <Card style={{ marginTop: '50px', paddingTop: '25px' }}>
     <Grid fluid>
       <Row>
         <Col xs={6} sm={4} md={4} lg={4}>
-        <CardMedia overlay={<CardTitle title="Worldedit" />}>
+        <CardMedia overlay={<CardTitle title="Worldedit" onClick={props.onClick} />}>
             <img src="http://placehold.it/300x300" />
           </ CardMedia>
         </ Col>
@@ -18,7 +18,7 @@ const ProfileCard = () => (
           <CardText>
             <List>
               <ListItem primaryText="Rating" secondaryText="7 positive trades" leftIcon={<FontIcon className="material-icons">thumb_up</FontIcon>} />
-              <ListItem primaryText="Location" secondaryText="Austin, TX" leftIcon={<FontIcon className="material-icons">place</FontIcon>}/ >
+              <ListItem primaryText="Location" secondaryText="Austin, TX" onClick={props.onClick} leftIcon={<FontIcon className="material-icons">place</FontIcon>}/ >
             </List>
           </CardText>
         </ Col>
@@ -26,7 +26,7 @@ const ProfileCard = () => (
     </Grid>
     <Divider style={{ marginTop: '25px' }} />
     <CardTitle title="Trade Notes" />
-    <CardText>
+    <CardText onClick={props.onClick}>
       <p>Special card or trade instructions go here</p>
     </CardText>
   </Card>
