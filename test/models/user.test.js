@@ -19,4 +19,9 @@ describe('user model validation', () => {
     should.exist(error.errors.email);
     done();
   });
+  it('saves a lowercase email address', (done) => {
+    user.email = 'TEST@EMAIL.COM';
+    user.email.should.be.equal('test@email.com');
+    done();
+  });
 });
