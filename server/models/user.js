@@ -12,7 +12,7 @@ const userSchema = new Schema({
     lowercase: true,
     validate: {
       validator(v) {
-        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
+        return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v);
       },
       message: '{VALUE} is not a valid email',
     },
