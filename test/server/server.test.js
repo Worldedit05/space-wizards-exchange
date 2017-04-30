@@ -3,7 +3,9 @@ const chai = require('chai');
 const { expect } = require('chai');
 const chaiHttp = require('chai-http');
 
-const app = require('../server/app');
+const app = require('../../server/app');
+
+// TODO: import modules with ES5 syntax
 
 chai.use(chaiHttp);
 
