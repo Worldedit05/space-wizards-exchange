@@ -6,6 +6,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import Card from '../ProfileCard';
+import CardList from '../CardList';
 
 /* eslint class-methods-use-this: 0 */
 export default class Profile extends Component {
@@ -35,11 +36,7 @@ export default class Profile extends Component {
         </Row>
         <Row center="xs">
           <Col xs/>
-          <Col xs>
-            <FloatingActionButton style={{ margin: '20px' }} onClick={this.handleClick} >
-              <ContentAdd />
-            </FloatingActionButton>
-          </Col>
+            <CardList />
           <Col xs/>
         </Row>
       </Grid>

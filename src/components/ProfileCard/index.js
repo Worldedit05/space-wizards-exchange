@@ -5,12 +5,14 @@ import { List, ListItem } from 'material-ui/List';
 import FontIcon from 'material-ui/FontIcon';
 import Divider from 'material-ui/Divider';
 
+const username = 'worldedit';
+
 const ProfileCard = (props) => (
   <Card style={{ marginTop: '50px', paddingTop: '25px' }}>
     <Grid fluid>
       <Row>
         <Col xs={6} sm={4} md={4} lg={4}>
-        <CardMedia overlay={<CardTitle title="Worldedit" onClick={props.onClick} />}>
+        <CardMedia overlay={<CardTitle title={username} onClick={props.onClick} />}>
             <img src="http://placehold.it/300x300" />
           </ CardMedia>
         </ Col>
