@@ -1,7 +1,11 @@
+const dbPassword = require('./pgpass.local.js');
+
 module.exports = {
-  mongo: {
-    hostname: 'localhost',
-    port: 27017,
-    database: 'dev_swdtraderdb',
-  },
+  user: 'postgres',
+  database: 'swdestiny_trader',
+  password: dbPassword,
+  host: 'localhost',
+  port: 5432,
+  max: 10,
+  idleTimeoutMillis: 30000,
 };
