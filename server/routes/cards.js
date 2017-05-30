@@ -21,7 +21,9 @@ router.get('/sync', (req, res) => {
         if (err) {
           return console.error('error fetching client from pool', err);
         }
-
+        // TODO:
+        // query for existing cards as to not have duplicates
+        // maybe look into comparing the json for changes?
         response.data.forEach((swdDbCard) => {
           client.query('INSERT INTO card (data) VALUES ($1)', [swdDbCard], (errQuery, result) => {
             done(errQuery);
