@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "async": "^2.4.1",
     "axios": "^0.16.1",
     "bluebird": "^3.5.0",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "classnames": "^2.2.5",
+    "deep-equal": "^1.0.1",
     "express": "^4.15.2",
     "material-ui": "^0.17.4",
     "mongoose": "^4.9.5",
