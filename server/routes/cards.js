@@ -24,12 +24,17 @@ router.get('/sync', async (req, res) => {
   let numberOfChangedCards = 0;
 
   /* eslint consistent-return: 0 */
-  const rows = await pool.connect((err, client, done) => {
-    if (err) {
-      return console.error('error fetching client from pool', err);
-    }
-
-    client.query('SELECT data AS dbCard FROM card', [], async (errSELECT, results) => {
+  const client = await pool.connect();
+  
+  const result = await pool.query('SELECT FOO', [])
+  
+  try {
+    
+  const result = await client.query('SELECT BLA')
+  } finally() {
+    client.release()
+  }
+  client.query('SELECT data AS dbCard FROM card', [], async (errSELECT, results) => {
       done(errSELECT);
       if (errSELECT) {
         return console.error('error running get modified cards query');
@@ -64,6 +69,5 @@ router.get('/sync', async (req, res) => {
       return res.send(rows);
     });
   });
-});
 
 module.exports = router;
