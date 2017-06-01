@@ -22,7 +22,6 @@ router.get('/sync', async (req, res) => {
   });
   let changedCards = [];
   let numberOfChangedCards = 0;
-  let insertResults = '';
 
   /* eslint consistent-return: 0 */
   const rows = await pool.connect((err, client, done) => {
@@ -59,10 +58,10 @@ router.get('/sync', async (req, res) => {
           if (errQuery) {
             return console.error('error running client query', errQuery);
           }
-          insertResults += result.toString();
+          return console.log(result);
         });
       });
-      return res.json(insertResults);
+      return res.send(rows);
     });
   });
 });
