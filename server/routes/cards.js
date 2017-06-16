@@ -24,7 +24,7 @@ router.get('/sync', async (req, res) => {
   let cardsChanged;
   /* eslint consistent-return: 0 */
 
-  const result = await pool.query('SELECT data  AS dbCard, swd_database_code AS cardCode FROM card', []);
+  const result = await pool.query('SELECT data AS dbCard, swd_database_code AS cardCode FROM card', []);
   if (result.rowCount === 0) {
     cardsToProcess = response.data;
     cardsChanged = false;
