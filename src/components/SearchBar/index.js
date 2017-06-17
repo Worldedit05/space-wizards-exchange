@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import AutoComplete from 'material-ui/AutoComplete';
+
+const toTitleCase = require('../../../server/helpers/title_case');
 
 const style = {
   marginBottom: '20px',
@@ -13,12 +16,19 @@ export default class SearchBar extends Component {
   };
 
   handleUpdateInput = (value) => {
-    this.setState({
-      dataSource: [
-        value,
-        value + value,
-        value + value + value,
-      ],
+    const resultsArry = [];
+
+    if (value === '') {
+      return;
+    }
+
+    axios.get(`/search?q=${value}`).then((response) => {
+      response.data.forEach((card) => {
+        resultsArry.push(`${card.data.name} ${card.data.subtitle ? card.data.subtitle : ''} - #${card.data.position} - ${card.data.set_name} - ${card.data.affiliation_name} - ${toTitleCase(card.data.faction_code)}`);
+      });
+      this.setState({
+        dataSource: resultsArry,
+      });
     });
   };
 
