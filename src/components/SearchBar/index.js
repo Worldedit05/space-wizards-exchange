@@ -13,6 +13,7 @@ const style = {
 export default class SearchBar extends Component {
   state = {
     dataSource: [],
+    value: '',
   };
 
   handleUpdateInput = (value) => {
@@ -32,12 +33,19 @@ export default class SearchBar extends Component {
     });
   };
 
+  handleSelection = (value) => {
+    console.log(`${value} was selected!`);
+    this.setState({ value });
+    this.props.onTermSelection(value);
+  }
+
   render() {
     return (
       <AutoComplete
           style={style}
           hintText="Type in a card name"
           dataSource={this.state.dataSource}
+          onNewRequest={this.handleSelection}
           onUpdateInput={this.handleUpdateInput}
           floatingLabelText="Card Search"
           fullWidth={true}
