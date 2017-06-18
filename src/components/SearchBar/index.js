@@ -34,7 +34,6 @@ export default class SearchBar extends Component {
   };
 
   handleSelection = (value) => {
-    console.log(`${value} was selected!`);
     this.setState({ value });
     this.props.onTermSelection(value);
   }
