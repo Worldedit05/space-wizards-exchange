@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import App from './components/App';
+import Login from './components/Login';
 import NavBar from './components/NavBar';
 import Profile from './components/Profile';
 import NotFound from './components/NotFound';
@@ -12,6 +13,7 @@ const Routes = () => (
         <Route component={NavBar} />
         <Switch>
           <Route path="/" exact component={App} />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/user/:username" component={Profile} />
           <Route exact path="/user/:username/edit" component={Profile} />
           <Route component={NotFound} />

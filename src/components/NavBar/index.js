@@ -28,6 +28,7 @@ export default class NavBar extends React.Component {
         <ToolbarGroup>
           <ToolbarSeparator />
           <FlatButton
+            href="/login"
             style={{ margin: '0' }}
             label="Login"
             primary={true}
