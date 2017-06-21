@@ -6,6 +6,7 @@ import Login from './components/Login';
 import NavBar from './components/NavBar';
 import Profile from './components/Profile';
 import NotFound from './components/NotFound';
+import Register from './components/Register';
 
 const Routes = () => (
     <Router>
@@ -14,6 +15,7 @@ const Routes = () => (
         <Switch>
           <Route path="/" exact component={App} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
           <Route exact path="/user/:username" component={Profile} />
           <Route exact path="/user/:username/edit" component={Profile} />
           <Route component={NotFound} />

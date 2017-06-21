@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
+import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const style = {
-  marginTop: 300,
-  height: 200,
-  width: 400,
+  marginTop: 350,
+  height: 'auto',
+  width: 450,
   textAlign: 'center',
   display: 'inline-block',
 };
@@ -23,19 +24,29 @@ export default class Login extends Component {
             <Paper style={style} zDepth={2} rounded>
             <Col xs={12}>
             <TextField
-                  hintText="johndoe@gmail.com"
-                  floatingLabelText="Username/Email"
+                  floatingLabelText="Email"
                 />
             </Col>
             <Col xs={12}>
             <TextField
-                  hintText="***********"
-                  floatingLabelText="Password"
-                  type="password"
+                  floatingLabelText="First Name"
                 />
             </Col>
             <Col xs={12}>
-              <RaisedButton label="Login" primary={true} />
+            <TextField
+                  floatingLabelText="Last Name"
+                />
+            </Col>
+            <Col xs={12}>
+            <TextField
+                  floatingLabelText="Password"
+                />
+            <TextField
+                  floatingLabelText="Password Again"
+                />
+            </Col>
+            <Col xs={12}>
+              <RaisedButton label="Register" primary={true} />
             </Col>
             </Paper>
           </Col>
