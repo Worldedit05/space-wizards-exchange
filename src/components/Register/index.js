@@ -5,12 +5,21 @@ import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const style = {
+const panelStyle = {
   marginTop: 350,
   height: 'auto',
   width: 450,
   textAlign: 'center',
   display: 'inline-block',
+};
+
+const buttonStyle = {
+  marginTop: 30,
+  marginBottom: 30,
+};
+
+const dividerStyle = {
+  marginTop: 15,
 };
 
 export default class Login extends Component {
@@ -21,7 +30,7 @@ export default class Login extends Component {
       <Grid fluid>
         <Row center="xs">
           <Col xs={12} sm={12} md={12} lg={12}>
-            <Paper style={style} zDepth={2} rounded>
+            <Paper style={panelStyle} zDepth={2} rounded>
             <Col xs={12}>
             <TextField
                   floatingLabelText="Email"
@@ -45,9 +54,14 @@ export default class Login extends Component {
                   floatingLabelText="Password Again"
                 />
             </Col>
-            <Col xs={12}>
-              <RaisedButton label="Register" primary={true} />
-            </Col>
+            <Row center="xs">
+              <Col xs={4}>
+                <RaisedButton label="Register" style={buttonStyle} primary={true} />
+              </Col>
+              <Col xs={4}>
+                <RaisedButton label="Cancel" style={buttonStyle} primary={false} />
+              </Col>
+            </Row>
             </Paper>
           </Col>
         </Row>
