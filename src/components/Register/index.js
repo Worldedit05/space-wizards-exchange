@@ -5,6 +5,8 @@ import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 
+const toTitleCase = require('../../../server/helpers/title_case');
+
 const panelStyle = {
   marginTop: 350,
   height: 'auto',
@@ -91,11 +93,19 @@ export default class Login extends Component {
 
     switch (fieldName) {
       case 'lastName' :
-        lastNameValid = value;
+        if (value) {
+          lastNameValid = true;
+        } else {
+          lastNameValid = false;
+        }
         fieldValidationErrors.lastName = lastNameValid ? '' : 'This field is required';
         break;
       case 'firstName' :
-        firstNameValid = value;
+        if (value) {
+          firstNameValid = true;
+        } else {
+          firstNameValid = false;
+        }
         fieldValidationErrors.firstName = firstNameValid ? '' : 'This field is required';
         break;
       case 'email':
@@ -109,7 +119,7 @@ export default class Login extends Component {
 
         fieldValidationErrors.password = passwordValid
                                           ? ''
-                                          : 'Password needs to be at least 6 characters long';
+                                          : 'Password needs to be at least 6 characters long and match second entry';
         break;
       case 'verifyPassword':
         passwordValid = value.length >= minPasswordLength && value === this.state.password;
@@ -131,7 +141,11 @@ export default class Login extends Component {
   }
 
   validateForm() {
-    this.setState({ formValid: this.state.emailValid && this.state.passwordValid });
+    this.setState({ formValid: this.state.emailValid
+                                && this.state.passwordValid
+                                && this.state.verifyPassword !== ''
+                                && this.state.lastNameValid
+                                && this.state.firstNameValid });
     console.log(this.state);
   }
 
@@ -184,7 +198,7 @@ export default class Login extends Component {
                       type="password"
                     />
                 <TextField
-                      floatingLabelText="Password Again"
+                      floatingLabelText="Verify Password"
                       id="text-field-password"
                       name="verifyPassword"
                       value={this.state.verifyPassword}
