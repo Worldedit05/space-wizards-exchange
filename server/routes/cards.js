@@ -19,6 +19,8 @@ router.get('/', (req, res) => {
 router.get('/sync', async (req, res) => {
   const response = await axios.get('https://swdestinydb.com/api/public/cards/');
   const insertedCardsList = [];
+  const insertNewCardResults = '';
+  const insertChangedCardResults = '';
   let numberOfChangedCards = 0;
   let numberofNewCards = 0;
   let newResponse = '';
@@ -30,13 +32,13 @@ router.get('/sync', async (req, res) => {
 
     if (dbCard.rowCount === 0) {
       try {
-        const insertResults = await pool.query('INSERT INTO card (data, swd_database_code) VALUES ($1 , $2) ON CONFLICT (swd_database_code) DO UPDATE SET (data) = ($1);', [card, card.code]);
+        insertNewCardResults = await pool.query('INSERT INTO card (data, swd_database_code) VALUES ($1 , $2) ON CONFLICT (swd_database_code) DO UPDATE SET (data) = ($1);', [card, card.code]);
       }
       catch (err) {
         console.log(err);
       }
       finally {
-        console.log(insertResults);
+        console.log(insertNewCardResults);
         insertedCardsList.push(card);
         numberofNewCards += 1;
         cardsInserted = true;
@@ -46,13 +48,13 @@ router.get('/sync', async (req, res) => {
 
       if (!deepEqual(card, dbCard.rows[0].dbcard)) {
         try {
-          const insertResults = await pool.query('INSERT INTO card (data, swd_database_code) VALUES ($1 , $2) ON CONFLICT (swd_database_code) DO UPDATE SET (data) = ($1);', [card, card.code]);
+          insertChangedCardResults = await pool.query('INSERT INTO card (data, swd_database_code) VALUES ($1 , $2) ON CONFLICT (swd_database_code) DO UPDATE SET (data) = ($1);', [card, card.code]);
         }
         catch (err) {
           console.log(err);
         }
         finally {
-          console.log(insertResults);
+          console.log(insertChangedCardResults);
           insertedCardsList.push(card);
           numberOfChangedCards += 1;
           cardsInserted = true;
