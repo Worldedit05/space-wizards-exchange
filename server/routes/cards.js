@@ -18,44 +18,53 @@ router.get('/', (req, res) => {
 
 router.get('/sync', async (req, res) => {
   const response = await axios.get('https://swdestinydb.com/api/public/cards/');
-  let cardsToProcess = [];
+  const insertedCardsList = [];
   let numberOfChangedCards = 0;
+  let numberofNewCards = 0;
   let newResponse = '';
-  let cardsChanged;
-  /* eslint consistent-return: 0 */
+  let cardsInserted;
 
-  const result = await pool.query('SELECT data AS dbCard, swd_database_code AS cardCode FROM card', []);
-  if (result.rowCount === 0) {
-    cardsToProcess = response.data;
-    cardsChanged = false;
-  }
+  /* eslint-disable */
+  for (const card of response.data) {
+    const dbCard = await pool.query('SELECT data AS dbCard FROM card WHERE swd_database_code = ($1)', [card.code]);
 
-  if (result.rowCount > 0) {
-    await result.rows.forEach((row) => {
-      const apiCardObj = response.data.find((value) => {
-        if (value.code === row.cardcode) {
-          console.log(`Card match found ${value.code}, ${row.cardcode}`);
-        }
-        return value.code === row.cardcode;
-      });
-
-      if (!deepEqual(apiCardObj, row.dbcard)) {
-        cardsToProcess.push(apiCardObj);
-        numberOfChangedCards += 1;
-        cardsChanged = true;
+    if (dbCard.rowCount === 0) {
+      try {
+        const insertResults = await pool.query('INSERT INTO card (data, swd_database_code) VALUES ($1 , $2) ON CONFLICT (swd_database_code) DO UPDATE SET (data) = ($1);', [card, card.code]);
       }
-    });
-    console.log(`SWDestinyDB reponse has changed ${numberOfChangedCards} cards`);
+      catch (err) {
+        console.log(err);
+      }
+      finally {
+        console.log(insertResults);
+        insertedCardsList.push(card);
+        numberofNewCards += 1;
+        cardsInserted = true;
+      }
+
+    } else if (dbCard.rowCount === 1) {
+
+      if (!deepEqual(card, dbCard.rows[0].dbcard)) {
+        try {
+          const insertResults = await pool.query('INSERT INTO card (data, swd_database_code) VALUES ($1 , $2) ON CONFLICT (swd_database_code) DO UPDATE SET (data) = ($1);', [card, card.code]);
+        }
+        catch (err) {
+          console.log(err);
+        }
+        finally {
+          console.log(insertResults);
+          insertedCardsList.push(card);
+          numberOfChangedCards += 1;
+          cardsInserted = true;
+        }
+      }
+    }
   }
+  /* eslint-enable */
 
-  await cardsToProcess.forEach(async (swdDbCard) => {
-    console.log(swdDbCard.code);
-    const insertResults = await pool.query('INSERT INTO card (data, swd_database_code) VALUES ($1 , $2) ON CONFLICT (swd_database_code) DO UPDATE SET (data) = ($1);', [swdDbCard, swdDbCard.code]);
-    console.log(insertResults);
-  });
+  console.log(`SWDestinyDB reponse has changed ${numberOfChangedCards} cards`);
 
-  newResponse = cardsChanged ? res.json([{ numberOfChangedCards }, cardsToProcess]) : res.json('No_cards_were_changed');
-
+  newResponse = cardsInserted ? res.json([{ numberofNewCards }, { numberOfChangedCards }, insertedCardsList]) : res.json('No_cards_were_changed');
   return newResponse;
 });
 
