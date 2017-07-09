@@ -16,5 +16,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/server/config.prod.js
-/server/pgpass.local.js
+/server/configs/config.prod.js
+/server/configs/passwords.js

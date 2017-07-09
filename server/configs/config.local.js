@@ -1,9 +1,9 @@
-const dbPassword = require('./pgpass.local.js');
+const password = require('./passwords.js');
 
 module.exports = {
   user: 'postgres',
   database: 'swdestiny_trader',
-  password: dbPassword,
+  password: password.dbPassword,
   host: 'localhost',
   port: 5432,
   max: 10,
