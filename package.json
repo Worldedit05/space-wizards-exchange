@@ -35,7 +35,7 @@
     "mocha": "^3.2.0",
     "mz": "^2.6.0",
     "nodemon": "^1.11.0",
-    "react-scripts": "1.0.0",
+    "react-scripts": "1.0.10",
     "supertest": "^3.0.0"
   },
   "scripts": {
