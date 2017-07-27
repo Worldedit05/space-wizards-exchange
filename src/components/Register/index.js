@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const toTitleCase = require('../../../server/helpers/title_case');
+const toTitleCase = require('../../helpers/title_case');
 
 const panelStyle = {
   marginTop: 350,

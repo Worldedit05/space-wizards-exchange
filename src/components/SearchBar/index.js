@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import AutoComplete from 'material-ui/AutoComplete';
 
-const toTitleCase = require('../../../server/helpers/title_case');
+const toTitleCase = require('../../helpers/title_case');
 
 const style = {
   marginBottom: '20px',
