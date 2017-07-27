@@ -23,7 +23,7 @@ export default class SearchBar extends Component {
       return;
     }
 
-    axios.get(`/search?q=${value}`).then((response) => {
+    axios.get(`/api/search?q=${value}`).then((response) => {
       response.data.forEach((card) => {
         resultsArry.push(`${card.data.name} ${card.data.subtitle ? card.data.subtitle : ''} - ${card.data.set_name} #${card.data.position} - ${card.data.affiliation_name} - ${toTitleCase(card.data.faction_code)}`);
       });

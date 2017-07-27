@@ -6,7 +6,7 @@ const router = new Router();
 
 router.get('/', async (req, res) => {
   if (!req.query.q) {
-    res.status(400).send('Please provide a query parameter');
+    return res.status(400).send('Please provide a query parameter');
   }
   const result = await pool.query('SELECT * FROM card WHERE data->>\'name\' LIKE ($1)', [`${req.query.q}%`]);
 

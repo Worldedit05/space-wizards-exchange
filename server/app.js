@@ -15,7 +15,7 @@ app.use(morgan('Server_log[morgan] - :remote-addr - :remote-user [:date[clf]] ":
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
-const routes = require('./routes')(app);
+require('./routes')(app);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
