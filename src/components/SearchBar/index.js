@@ -7,9 +7,7 @@ const toTitleCase = require('../../helpers/title_case');
 const style = {
   marginBottom: '20px',
 };
-/**
- * The input is used to create the `dataSource`, so the input always matches three entries.
- */
+
 export default class SearchBar extends Component {
   state = {
     dataSource: [],
@@ -44,6 +42,7 @@ export default class SearchBar extends Component {
           style={style}
           hintText="Type in a card name"
           dataSource={this.state.dataSource}
+          filter={AutoComplete.caseInsensitiveFilter}
           onNewRequest={this.handleSelection}
           onUpdateInput={this.handleUpdateInput}
           floatingLabelText="Card Search"
