@@ -12,7 +12,7 @@ const ProfileCard = (props) => (
     <Grid fluid>
       <Row>
         <Col xs={6} sm={4} md={4} lg={4}>
-        <CardMedia overlay={<CardTitle title={username} onClick={props.onClick} />}>
+          <CardMedia overlay={<CardTitle title={username} onClick={props.onClick} />}>
             <img src="http://placehold.it/300x300" alt={username} />
           </ CardMedia>
         </ Col>

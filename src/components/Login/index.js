@@ -13,30 +13,29 @@ const style = {
 };
 
 export default class Login extends Component {
-
   render() {
-    const { className } = this.props; /* eslint no-unused-vars: 0*/
+    const { className } = this.props; /* eslint no-unused-vars: 0 */
     return (
       <Grid fluid>
         <Row center="xs">
           <Col xs={12} sm={12} md={12} lg={12}>
             <Paper style={style} zDepth={2} rounded>
-            <Col xs={12}>
-            <TextField
+              <Col xs={12}>
+                <TextField
                   hintText="johndoe@gmail.com"
                   floatingLabelText="Username/Email"
                 />
-            </Col>
-            <Col xs={12}>
-            <TextField
+              </Col>
+              <Col xs={12}>
+                <TextField
                   hintText="***********"
                   floatingLabelText="Password"
                   type="password"
                 />
-            </Col>
-            <Col xs={12}>
-              <RaisedButton label="Login" primary={true} />
-            </Col>
+              </Col>
+              <Col xs={12}>
+                <RaisedButton label="Login" primary={true} />
+              </Col>
             </Paper>
           </Col>
         </Row>

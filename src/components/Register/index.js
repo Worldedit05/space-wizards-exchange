@@ -58,7 +58,7 @@ export default class Login extends Component {
     const name = target.name;
     this.setState({
       [name]: value },
-      () => { this.validateField(name, value); });
+    () => { this.validateField(name, value); });
   }
 
   handleSubmit = (event) => {
@@ -118,14 +118,14 @@ export default class Login extends Component {
                         && validatePasswords(value, this.state.verifyPassword);
 
         fieldValidationErrors.password = passwordValid
-                                          ? ''
-                                          : 'Password needs to be at least 6 characters long and match second entry';
+          ? ''
+          : 'Password needs to be at least 6 characters long and match second entry';
         break;
       case 'verifyPassword':
         passwordValid = value.length >= minPasswordLength && value === this.state.password;
         fieldValidationErrors.verifyPassword = passwordValid
-                                                ? ''
-                                                : 'Password needs to be at least 6 characters long and match previous entry';
+          ? ''
+          : 'Password needs to be at least 6 characters long and match previous entry';
         break;
       default:
         break;
@@ -137,7 +137,7 @@ export default class Login extends Component {
       lastNameValid,
       firstNameValid,
     },
-      this.validateForm);
+    this.validateForm);
   }
 
   validateForm() {
@@ -150,7 +150,7 @@ export default class Login extends Component {
   }
 
   render() {
-    const { className } = this.props; /* eslint no-unused-vars: 0*/
+    const { className } = this.props; /* eslint no-unused-vars: 0 */
     return (
       <Grid fluid>
         <Row center="xs">
@@ -158,71 +158,71 @@ export default class Login extends Component {
             <Paper style={panelStyle} zDepth={1} rounded>
               <form onSubmit={this.handleSubmit}>
                 <Col xs={12}>
-                <TextField
-                      floatingLabelText="Email"
-                      id="text-field-email"
-                      name="email"
-                      value={this.state.email}
-                      errorText={this.state.emailValid ? '' : this.state.formErrors.email}
-                      onChange={this.handleChange}
-                    />
+                  <TextField
+                    floatingLabelText="Email"
+                    id="text-field-email"
+                    name="email"
+                    value={this.state.email}
+                    errorText={this.state.emailValid ? '' : this.state.formErrors.email}
+                    onChange={this.handleChange}
+                  />
                 </Col>
                 <Col xs={12}>
-                <TextField
-                      floatingLabelText="First Name"
-                      id="text-field-firstname"
-                      name="firstName"
-                      errorText={this.state.firstNameValid ? '' : this.state.formErrors.firstName}
-                      value={this.state.firstName}
-                      onChange={this.handleChange}
-                    />
+                  <TextField
+                    floatingLabelText="First Name"
+                    id="text-field-firstname"
+                    name="firstName"
+                    errorText={this.state.firstNameValid ? '' : this.state.formErrors.firstName}
+                    value={this.state.firstName}
+                    onChange={this.handleChange}
+                  />
                 </Col>
                 <Col xs={12}>
-                <TextField
-                      floatingLabelText="Last Name"
-                      id="text-field-lastname"
-                      name="lastName"
-                      errorText={this.state.lastNameValid ? '' : this.state.formErrors.lastName}
-                      value={this.state.lastName}
-                      onChange={this.handleChange}
-                    />
+                  <TextField
+                    floatingLabelText="Last Name"
+                    id="text-field-lastname"
+                    name="lastName"
+                    errorText={this.state.lastNameValid ? '' : this.state.formErrors.lastName}
+                    value={this.state.lastName}
+                    onChange={this.handleChange}
+                  />
                 </Col>
                 <Col xs={12}>
-                <TextField
-                      floatingLabelText="Password"
-                      id="text-field-password"
-                      name="password"
-                      value={this.state.password}
-                      errorText={this.state.passwordValid ? '' : this.state.formErrors.password}
-                      onChange={this.handleChange}
-                      type="password"
-                    />
-                <TextField
-                      floatingLabelText="Verify Password"
-                      id="text-field-password"
-                      name="verifyPassword"
-                      value={this.state.verifyPassword}
-                      errorText={this.state.passwordValid ? '' : this.state.formErrors.verifyPassword}
-                      onChange={this.handleChange}
-                      type="password"
-                    />
+                  <TextField
+                    floatingLabelText="Password"
+                    id="text-field-password"
+                    name="password"
+                    value={this.state.password}
+                    errorText={this.state.passwordValid ? '' : this.state.formErrors.password}
+                    onChange={this.handleChange}
+                    type="password"
+                  />
+                  <TextField
+                    floatingLabelText="Verify Password"
+                    id="text-field-password"
+                    name="verifyPassword"
+                    value={this.state.verifyPassword}
+                    errorText={this.state.passwordValid ? '' : this.state.formErrors.verifyPassword}
+                    onChange={this.handleChange}
+                    type="password"
+                  />
                 </Col>
                 <Row center="xs">
                   <Col xs={4}>
                     <RaisedButton
-                        onClick={this.handleSubmit}
-                        type="submit"
-                        label="Register"
-                        style={buttonStyle}
-                        disabled={!this.state.formValid}
-                        primary={true} />
+                      onClick={this.handleSubmit}
+                      type="submit"
+                      label="Register"
+                      style={buttonStyle}
+                      disabled={!this.state.formValid}
+                      primary={true} />
                   </Col>
                   <Col xs={4}>
                     <RaisedButton
-                        onClick={this.handleReset}
-                        label="Reset"
-                        style={buttonStyle}
-                        primary={false} />
+                      onClick={this.handleReset}
+                      label="Reset"
+                      style={buttonStyle}
+                      primary={false} />
                   </Col>
                 </Row>
               </form>

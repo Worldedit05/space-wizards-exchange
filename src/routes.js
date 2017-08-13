@@ -9,19 +9,19 @@ import NotFound from './components/NotFound';
 import Register from './components/Register';
 
 const Routes = () => (
-    <Router>
-      <div>
-        <Route component={NavBar} />
-        <Switch>
-          <Route path="/" exact component={App} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/user/:username" component={Profile} />
-          <Route exact path="/user/:username/edit" component={Profile} />
-          <Route component={NotFound} />
-        </Switch>
-      </div>
-    </ Router>
+  <Router>
+    <div>
+      <Route component={NavBar} />
+      <Switch>
+        <Route path="/" exact component={App} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/user/:username" component={Profile} />
+        <Route exact path="/user/:username/edit" component={Profile} />
+        <Route component={NotFound} />
+      </Switch>
+    </div>
+  </ Router>
 );
 
 export default Routes;

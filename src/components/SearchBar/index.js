@@ -39,15 +39,15 @@ export default class SearchBar extends Component {
   render() {
     return (
       <AutoComplete
-          style={style}
-          hintText="Type in a card name"
-          dataSource={this.state.dataSource}
-          filter={AutoComplete.caseInsensitiveFilter}
-          onNewRequest={this.handleSelection}
-          onUpdateInput={this.handleUpdateInput}
-          floatingLabelText="Card Search"
-          fullWidth={true}
-        />
+        style={style}
+        hintText="Type in a card name"
+        dataSource={this.state.dataSource}
+        filter={AutoComplete.caseInsensitiveFilter}
+        onNewRequest={this.handleSelection}
+        onUpdateInput={this.handleUpdateInput}
+        floatingLabelText="Card Search"
+        fullWidth={true}
+      />
     );
   }
 }

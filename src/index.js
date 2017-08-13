@@ -13,5 +13,5 @@ ReactDOM.render(
   <MuiThemeProvider>
     <Routes />
   </ MuiThemeProvider>,
-  document.getElementById('root') /* eslint comma-dangle: ["error", "never"]*/
+  document.getElementById('root') /* eslint comma-dangle: ["error", "never"] */
 );

@@ -5,10 +5,9 @@ import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-
 import FontIcon from 'material-ui/FontIcon';
 import { NavLink } from 'react-router-dom';
 
-import style from './style.css'; /* eslint no-unused-vars: 0*/
+import style from './style.css'; /* eslint no-unused-vars: 0 */
 
 export default class NavBar extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {

@@ -31,7 +31,7 @@ class App extends Component {
   }
 
   render() {
-    const { className } = this.props; /* eslint no-unused-vars: 0*/
+    const { className } = this.props; /* eslint no-unused-vars: 0 */
     return (
       <Grid fluid>
         <Row>
