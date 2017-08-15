@@ -147,7 +147,7 @@ export default class Login extends Component {
         break;
     }
     this.setState({
-      formError: fieldValidationErrors,
+      formErrors: fieldValidationErrors,
       emailValid,
       passwordValid,
       lastNameValid,
