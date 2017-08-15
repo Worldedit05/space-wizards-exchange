@@ -10,9 +10,11 @@ pool.on('error', (err) => {
   console.error('idle client error', err.message, err.stack);
 });
 
-module.exports.query = (text, values, callback) => {
-  console.log('query:', text, values);
-  return pool.query(text, values, callback);
+module.exports = {
+  query: (text, params) => {
+    console.log('query:', text, params);
+    return pool.query(text, params);
+  },
 };
 
 module.exports.connect = (callback) => {

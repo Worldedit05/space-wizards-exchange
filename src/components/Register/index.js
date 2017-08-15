@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
+import axios from 'axios';
 
 const toTitleCase = require('../../helpers/title_case');
 
@@ -38,13 +39,14 @@ export default class Login extends Component {
     this.state = {
       email: '',
       emailValid: false,
+      userName: '',
       firstName: '',
       lastName: '',
       password: '',
       verifyPassword: '',
       passwordValid: false,
       formValid: false,
-      formErrors: { email: '', password: '', verifyPassword: '' },
+      formErrors: { email: '', password: '', verifyPassword: '', userName: '' },
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -63,13 +65,18 @@ export default class Login extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state);
+    axios.post('/api/account/setup', this.state)
+      .then((response) => {
+        console.log(response);
+      });
   }
 
   handleReset = (event) => {
     this.setState({
       email: '',
       emailValid: false,
+      userName: '',
+      userNameValid: false,
       firstName: '',
       firstNameValid: false,
       lastName: '',
@@ -78,7 +85,7 @@ export default class Login extends Component {
       verifyPassword: '',
       passwordValid: false,
       formValid: false,
-      formErrors: { email: '', password: '', verifyPassword: '', firstName: '', lastName: '' },
+      formErrors: { email: '', password: '', verifyPassword: '', firstName: '', lastName: '', userName: '' },
     });
   }
 
@@ -89,6 +96,7 @@ export default class Login extends Component {
     let passwordValid = this.state.passwordValid;
     let lastNameValid = this.state.lastNameValid;
     let firstNameValid = this.state.firstNameValid;
+    let userNameValid = this.state.userNameValid;
     let regex = null;
 
     switch (fieldName) {
@@ -107,6 +115,14 @@ export default class Login extends Component {
           firstNameValid = false;
         }
         fieldValidationErrors.firstName = firstNameValid ? '' : 'This field is required';
+        break;
+      case 'userName' :
+        if (value) {
+          userNameValid = true;
+        } else {
+          userNameValid = false;
+        }
+        fieldValidationErrors.userName = userNameValid ? '' : 'This field is required';
         break;
       case 'email':
         regex = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
@@ -136,6 +152,7 @@ export default class Login extends Component {
       passwordValid,
       lastNameValid,
       firstNameValid,
+      userNameValid,
     },
     this.validateForm);
   }
@@ -145,7 +162,8 @@ export default class Login extends Component {
                                 && this.state.passwordValid
                                 && this.state.verifyPassword !== ''
                                 && this.state.lastNameValid
-                                && this.state.firstNameValid });
+                                && this.state.firstNameValid
+                                && this.state.userNameValid });
     console.log(this.state);
   }
 
@@ -164,6 +182,16 @@ export default class Login extends Component {
                     name="email"
                     value={this.state.email}
                     errorText={this.state.emailValid ? '' : this.state.formErrors.email}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+                <Col xs={12}>
+                  <TextField
+                    floatingLabelText="Username"
+                    id="text-field-username"
+                    name="userName"
+                    errorText={this.state.userNameValid ? '' : this.state.formErrors.userName}
+                    value={this.state.userName}
                     onChange={this.handleChange}
                   />
                 </Col>

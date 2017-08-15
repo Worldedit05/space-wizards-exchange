@@ -2,7 +2,7 @@ const axios = require('axios');
 const deepEqual = require('deep-equal');
 const Router = require('express-promise-router');
 
-const pool = require('../db.js');
+const db = require('../db.js');
 
 const router = new Router();
 
@@ -28,11 +28,11 @@ router.get('/sync', async (req, res) => {
 
   /* eslint-disable */
   for (const card of response.data) {
-    const dbCard = await pool.query('SELECT data AS dbCard FROM card WHERE swd_database_code = ($1)', [card.code]);
+    const dbCard = await db.query('SELECT data AS dbCard FROM card WHERE swd_database_code = ($1)', [card.code]);
 
     if (dbCard.rowCount === 0) {
       try {
-        insertNewCardResults = await pool.query('INSERT INTO card (data, swd_database_code) VALUES ($1 , $2) ON CONFLICT (swd_database_code) DO UPDATE SET (data) = ($1);', [card, card.code]);
+        insertNewCardResults = await db.query('INSERT INTO card (data, swd_database_code) VALUES ($1 , $2) ON CONFLICT (swd_database_code) DO UPDATE SET (data) = ($1);', [card, card.code]);
       }
       catch (err) {
         console.log(err);
@@ -48,7 +48,7 @@ router.get('/sync', async (req, res) => {
 
       if (!deepEqual(card, dbCard.rows[0].dbcard)) {
         try {
-          insertChangedCardResults = await pool.query('INSERT INTO card (data, swd_database_code) VALUES ($1 , $2) ON CONFLICT (swd_database_code) DO UPDATE SET (data) = ($1);', [card, card.code]);
+          insertChangedCardResults = await db.query('INSERT INTO card (data, swd_database_code) VALUES ($1 , $2) ON CONFLICT (swd_database_code) DO UPDATE SET (data) = ($1);', [card, card.code]);
         }
         catch (err) {
           console.log(err);
