@@ -35,7 +35,9 @@ function validatePasswords(firstPasswordField, secondPasswordField) {
 export default class Login extends Component {
   constructor(props) {
     super(props);
-
+    // ********************************************************************
+    // TODO: collect validation into a single propery on this state object
+    // ********************************************************************
     this.state = {
       email: '',
       isEmailValid: false,
@@ -70,7 +72,7 @@ export default class Login extends Component {
         console.log(response);
       });
   }
-  // TODO: collect validation into a single propery on this state object
+
   handleReset = (event) => {
     this.setState({
       email: '',
