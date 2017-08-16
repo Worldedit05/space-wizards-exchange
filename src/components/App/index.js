@@ -34,8 +34,8 @@ class App extends Component {
     const { className } = this.props; /* eslint no-unused-vars: 0 */
     return (
       <Grid fluid>
-        <Row>
-          <Col xs={12} sm={12} md={12} lg={12}>
+        <Row center="xs">
+          <Col xs={12} sm={12} md={10} lg={8}>
             <Paper style={style} zDepth={0} rounded>
               <Row>
                 <Col xs={12}>
