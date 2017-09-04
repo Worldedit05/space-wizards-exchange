@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
       res.json(response.data);
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 });
 
@@ -38,7 +38,7 @@ router.get('/sync', async (req, res) => {
         saveCard(card);
       }
       catch (err) {
-        console.log(err);
+        console.error(err);
       }
       finally {
         console.log(insertNewCardResults);
@@ -54,7 +54,7 @@ router.get('/sync', async (req, res) => {
           saveCard(card);
         }
         catch (err) {
-          console.log(err);
+          console.error(err);
         }
         finally {
           console.log(insertChangedCardResults);
