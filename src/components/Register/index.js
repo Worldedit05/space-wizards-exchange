@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
+import Popover from 'material-ui/Popover/Popover';
 import axios from 'axios';
 
 const toTitleCase = require('../../helpers/title_case');
@@ -14,6 +15,17 @@ const panelStyle = {
   width: 450,
   textAlign: 'center',
   display: 'inline-block',
+};
+
+const fieldRuleStyle = {
+  height: 50,
+  width: '60%',
+  marginLeft: '20%',
+  marginBottom: 20,
+  padding: 15,
+  textAlign: 'center',
+  backgroundColor: 'rgb(0, 188, 212)',
+  color: 'white',
 };
 
 const buttonStyle = {
@@ -35,20 +47,23 @@ function validatePasswords(firstPasswordField, secondPasswordField) {
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    // ********************************************************************
-    // TODO: collect validation into a single propery on this state object
-    // ********************************************************************
+
     this.state = {
       email: '',
-      isEmailValid: false,
       userName: '',
       firstName: '',
       lastName: '',
       password: '',
       verifyPassword: '',
-      isPasswordValid: false,
+      validation: {
+        isEmailValid: false,
+        isUserNameValid: false,
+        isFirstNameValid: false,
+        isLastNameValid: false,
+        isPasswordValid: false,
+      },
       isFormValid: false,
-      formErrorMessages: { email: '', password: '', verifyPassword: '', userName: '' },
+      formErrorMessages: { email: '', password: '', verifyPassword: '', firstName: '', lastName: '', userName: '' },
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -58,7 +73,7 @@ export default class Login extends Component {
 
   handleChange = (event) => {
     const target = event.target;
-    const value = target.value;
+    const value = target.value.trim();
     const name = target.name;
     this.setState({
       [name]: value },
@@ -76,16 +91,18 @@ export default class Login extends Component {
   handleReset = (event) => {
     this.setState({
       email: '',
-      isEmailValid: false,
       userName: '',
-      isUserNameValid: false,
       firstName: '',
-      isFirstNameValid: false,
       lastName: '',
-      isLastNameValid: false,
       password: '',
       verifyPassword: '',
-      isPasswordValid: false,
+      validation: {
+        isEmailValid: false,
+        isUserNameValid: false,
+        isFirstNameValid: false,
+        isLastNameValid: false,
+        isPasswordValid: false,
+      },
       isFormValid: false,
       formErrorMessages: { email: '', password: '', verifyPassword: '', firstName: '', lastName: '', userName: '' },
     });
@@ -94,12 +111,12 @@ export default class Login extends Component {
   validateField(fieldName, value) {
     const fieldValidationErrors = this.state.formErrorMessages;
     const minPasswordLength = 6;
-    let isEmailValid = this.state.isEmailValid;
-    let isPasswordValid = this.state.isPasswordValid;
-    let isLastNameValid = this.state.isLastNameValid;
-    let isFirstNameValid = this.state.isFirstNameValid;
-    let isUserNameValid = this.state.isUserNameValid;
-    let regex = null;
+    let isEmailValid = this.state.validation.isEmailValid;
+    let isPasswordValid = this.state.validation.isPasswordValid;
+    let isLastNameValid = this.state.validation.isLastNameValid;
+    let isFirstNameValid = this.state.validation.isFirstNameValid;
+    let isUserNameValid = this.state.validation.isUserNameValid;
+    let regex;
 
     switch (fieldName) {
       case 'lastName' :
@@ -150,22 +167,24 @@ export default class Login extends Component {
     }
     this.setState({
       formErrorMessages: fieldValidationErrors,
-      isEmailValid,
-      isPasswordValid,
-      isLastNameValid,
-      isFirstNameValid,
-      isUserNameValid,
+      validation: {
+        isEmailValid,
+        isUserNameValid,
+        isFirstNameValid,
+        isLastNameValid,
+        isPasswordValid,
+      },
     },
     this.validateForm);
   }
 
   validateForm() {
-    this.setState({ isFormValid: this.state.isEmailValid
-                                && this.state.isPasswordValid
-                                && this.state.verifyPassword !== ''
-                                && this.state.isLastNameValid
-                                && this.state.isFirstNameValid
-                                && this.state.isUserNameValid });
+    this.setState({ isFormValid: this.state.validation.isEmailValid
+                                && this.state.validation.isPasswordValid
+                                && this.state.validation.verifyPassword !== ''
+                                && this.state.validation.isLastNameValid
+                                && this.state.validation.isFirstNameValid
+                                && this.state.validation.isUserNameValid });
     console.log(this.state);
   }
 
@@ -183,7 +202,7 @@ export default class Login extends Component {
                     id="text-field-email"
                     name="email"
                     value={this.state.email}
-                    errorText={this.state.isEmailValid ? '' : this.state.formErrorMessages.email}
+                    errorText={this.state.validation.isEmailValid ? '' : this.state.formErrorMessages.email}
                     onChange={this.handleChange}
                   />
                 </Col>
@@ -192,7 +211,7 @@ export default class Login extends Component {
                     floatingLabelText="Username"
                     id="text-field-username"
                     name="userName"
-                    errorText={this.state.isUserNameValid ? '' : this.state.formErrorMessages.userName}
+                    errorText={this.state.validation.isUserNameValid ? '' : this.state.formErrorMessages.userName}
                     value={this.state.userName}
                     onChange={this.handleChange}
                   />
@@ -202,7 +221,7 @@ export default class Login extends Component {
                     floatingLabelText="First Name"
                     id="text-field-firstname"
                     name="firstName"
-                    errorText={this.state.isFirstNameValid ? '' : this.state.formErrorMessages.firstName}
+                    errorText={this.state.validation.isFirstNameValid ? '' : this.state.formErrorMessages.firstName}
                     value={this.state.firstName}
                     onChange={this.handleChange}
                   />
@@ -212,7 +231,7 @@ export default class Login extends Component {
                     floatingLabelText="Last Name"
                     id="text-field-lastname"
                     name="lastName"
-                    errorText={this.state.isLastNameValid ? '' : this.state.formErrorMessages.lastName}
+                    errorText={this.state.validation.isLastNameValid ? '' : this.state.formErrorMessages.lastName}
                     value={this.state.lastName}
                     onChange={this.handleChange}
                   />
@@ -223,7 +242,7 @@ export default class Login extends Component {
                     id="text-field-password"
                     name="password"
                     value={this.state.password}
-                    errorText={this.state.isPasswordValid ? '' : this.state.formErrorMessages.password}
+                    errorText={this.state.validation.isPasswordValid ? '' : this.state.formErrorMessages.password}
                     onChange={this.handleChange}
                     type="password"
                   />
@@ -232,7 +251,7 @@ export default class Login extends Component {
                     id="text-field-password"
                     name="verifyPassword"
                     value={this.state.verifyPassword}
-                    errorText={this.state.isPasswordValid ? '' : this.state.formErrorMessages.verifyPassword}
+                    errorText={this.state.validation.isPasswordValid ? '' : this.state.formErrorMessages.verifyPassword}
                     onChange={this.handleChange}
                     type="password"
                   />
@@ -255,6 +274,9 @@ export default class Login extends Component {
                       primary={false} />
                   </Col>
                 </Row>
+                <Paper style={fieldRuleStyle} zDepth={1}>
+                  *Fields cannot contain spaces!
+                </Paper>
               </form>
             </Paper>
           </Col>
