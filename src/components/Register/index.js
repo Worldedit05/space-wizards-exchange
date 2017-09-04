@@ -4,8 +4,10 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
-import Popover from 'material-ui/Popover/Popover';
 import axios from 'axios';
+
+import FieldInfo from './field_info';
+import Buttons from './buttons';
 
 const toTitleCase = require('../../helpers/title_case');
 
@@ -15,22 +17,6 @@ const panelStyle = {
   width: 450,
   textAlign: 'center',
   display: 'inline-block',
-};
-
-const fieldRuleStyle = {
-  height: 50,
-  width: '60%',
-  marginLeft: '20%',
-  marginBottom: 20,
-  padding: 15,
-  textAlign: 'center',
-  backgroundColor: 'rgb(0, 188, 212)',
-  color: 'white',
-};
-
-const buttonStyle = {
-  marginTop: 30,
-  marginBottom: 30,
 };
 
 const dividerStyle = {
@@ -181,7 +167,7 @@ export default class Login extends Component {
   validateForm() {
     this.setState({ isFormValid: this.state.validation.isEmailValid
                                 && this.state.validation.isPasswordValid
-                                && this.state.validation.verifyPassword !== ''
+                                && this.state.verifyPassword !== ''
                                 && this.state.validation.isLastNameValid
                                 && this.state.validation.isFirstNameValid
                                 && this.state.validation.isUserNameValid });
@@ -256,27 +242,8 @@ export default class Login extends Component {
                     type="password"
                   />
                 </Col>
-                <Row center="xs">
-                  <Col xs={4}>
-                    <RaisedButton
-                      onClick={this.handleSubmit}
-                      type="submit"
-                      label="Register"
-                      style={buttonStyle}
-                      disabled={!this.state.isFormValid}
-                      primary={true} />
-                  </Col>
-                  <Col xs={4}>
-                    <RaisedButton
-                      onClick={this.handleReset}
-                      label="Reset"
-                      style={buttonStyle}
-                      primary={false} />
-                  </Col>
-                </Row>
-                <Paper style={fieldRuleStyle} zDepth={1}>
-                  *Fields cannot contain spaces!
-                </Paper>
+                <Buttons disabled={this.state.isFormValid} />
+                <FieldInfo />
               </form>
             </Paper>
           </Col>
