@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 import FontIcon from 'material-ui/FontIcon';
 import { NavLink } from 'react-router-dom';
+import { lightBlue600 } from 'material-ui/styles/colors';
 
 import style from './style.css'; /* eslint no-unused-vars: 0 */
 
@@ -28,9 +29,8 @@ export default class NavBar extends React.Component {
           <ToolbarSeparator />
           <FlatButton
             href="/login"
-            style={{ margin: '0' }}
+            style={{ margin: '0', color: lightBlue600 }}
             label="Login"
-            primary={true}
             labelPosition="before"
             icon={<FontIcon className="material-icons">call_to_action</FontIcon>}/>
         </ ToolbarGroup>

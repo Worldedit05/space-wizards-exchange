@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
+import { lightBlue600 } from 'material-ui/styles/colors';
 import axios from 'axios';
 
 import FieldInfo from './field_info';
@@ -17,6 +18,15 @@ const panelStyle = {
   width: 450,
   textAlign: 'center',
   display: 'inline-block',
+};
+
+const style = {
+  underlineStyle: {
+    borderColor: lightBlue600,
+  },
+  floatingLabelFocusStyle: {
+    color: lightBlue600,
+  },
 };
 
 const dividerStyle = {
@@ -50,6 +60,7 @@ export default class Login extends Component {
       },
       isFormValid: false,
       formErrorMessages: { email: '', password: '', verifyPassword: '', firstName: '', lastName: '', userName: '' },
+      data: null,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -70,11 +81,17 @@ export default class Login extends Component {
     event.preventDefault();
     axios.post('/api/account/setup', this.state)
       .then((response) => {
-        console.log(response);
+        console.log(response.data.success);
+        if (response.data.success === false) {
+          this.setState({
+            data: response.data,
+          });
+        }
       });
   }
 
   handleReset = (event) => {
+    event.preventDefault();
     this.setState({
       email: '',
       userName: '',
@@ -91,6 +108,7 @@ export default class Login extends Component {
       },
       isFormValid: false,
       formErrorMessages: { email: '', password: '', verifyPassword: '', firstName: '', lastName: '', userName: '' },
+      data: null,
     });
   }
 
@@ -185,6 +203,8 @@ export default class Login extends Component {
                 <Col xs={12}>
                   <TextField
                     floatingLabelText="Email"
+                    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+                    underlineFocusStyle={style.underlineStyle}
                     id="text-field-email"
                     name="email"
                     value={this.state.email}
@@ -195,6 +215,8 @@ export default class Login extends Component {
                 <Col xs={12}>
                   <TextField
                     floatingLabelText="Username"
+                    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+                    underlineFocusStyle={style.underlineStyle}
                     id="text-field-username"
                     name="userName"
                     errorText={this.state.validation.isUserNameValid ? '' : this.state.formErrorMessages.userName}
@@ -205,6 +227,8 @@ export default class Login extends Component {
                 <Col xs={12}>
                   <TextField
                     floatingLabelText="First Name"
+                    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+                    underlineFocusStyle={style.underlineStyle}
                     id="text-field-firstname"
                     name="firstName"
                     errorText={this.state.validation.isFirstNameValid ? '' : this.state.formErrorMessages.firstName}
@@ -215,6 +239,8 @@ export default class Login extends Component {
                 <Col xs={12}>
                   <TextField
                     floatingLabelText="Last Name"
+                    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+                    underlineFocusStyle={style.underlineStyle}
                     id="text-field-lastname"
                     name="lastName"
                     errorText={this.state.validation.isLastNameValid ? '' : this.state.formErrorMessages.lastName}
@@ -225,6 +251,8 @@ export default class Login extends Component {
                 <Col xs={12}>
                   <TextField
                     floatingLabelText="Password"
+                    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+                    underlineFocusStyle={style.underlineStyle}
                     id="text-field-password"
                     name="password"
                     value={this.state.password}
@@ -234,6 +262,8 @@ export default class Login extends Component {
                   />
                   <TextField
                     floatingLabelText="Verify Password"
+                    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+                    underlineFocusStyle={style.underlineStyle}
                     id="text-field-password"
                     name="verifyPassword"
                     value={this.state.verifyPassword}
@@ -242,8 +272,8 @@ export default class Login extends Component {
                     type="password"
                   />
                 </Col>
-                <Buttons disabled={this.state.isFormValid} />
-                <FieldInfo />
+                <Buttons disabled={this.state.isFormValid} reset={this.handleReset}/>
+                <FieldInfo data={this.state.data}/>
               </form>
             </Paper>
           </Col>

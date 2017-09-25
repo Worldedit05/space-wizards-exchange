@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import RaisedButton from 'material-ui/RaisedButton';
+import { lightBlue600 } from 'material-ui/styles/colors';
 
 const buttonStyle = {
   marginTop: 30,
@@ -17,12 +18,12 @@ export default class Buttons extends React.Component {
             type="submit"
             label="Register"
             style={buttonStyle}
-            disabled={!this.props.disabled}
-            primary={true} />
+            backgroundColor={lightBlue600}
+            disabled={!this.props.disabled} />
         </Col>
         <Col xs={4}>
           <RaisedButton
-            onClick={this.handleReset}
+            onClick={this.props.reset}
             label="Reset"
             style={buttonStyle}
             primary={false} />

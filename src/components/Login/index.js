@@ -3,6 +3,7 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import { lightBlue600 } from 'material-ui/styles/colors';
 
 const style = {
   marginTop: 300,
@@ -10,6 +11,9 @@ const style = {
   width: 400,
   textAlign: 'center',
   display: 'inline-block',
+  label: {
+    text: '#FFF',
+  },
 };
 
 export default class Login extends Component {
@@ -34,7 +38,7 @@ export default class Login extends Component {
                 />
               </Col>
               <Col xs={12}>
-                <RaisedButton label="Login" primary={true} />
+                <RaisedButton label="Login" backgroundColor={lightBlue600} labelColor={style.label.text}/>
               </Col>
             </Paper>
           </Col>
