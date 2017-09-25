@@ -33,12 +33,19 @@ const dividerStyle = {
   marginTop: 15,
 };
 
-function validatePasswords(firstPasswordField, secondPasswordField) {
+const checkUserName = (value) => {
+  axios.get(`/api/account/check/${value.trim()}`)
+    .then((response) => {
+      console.log(response);
+    });
+};
+
+const validatePasswords = (firstPasswordField, secondPasswordField) => {
   if (secondPasswordField === '') {
     return true;
   }
   return firstPasswordField === secondPasswordField;
-}
+};
 
 export default class Login extends Component {
   constructor(props) {
@@ -141,6 +148,7 @@ export default class Login extends Component {
         break;
       case 'userName' :
         if (value) {
+          checkUserName(value);
           isUserNameValid = true;
         } else {
           isUserNameValid = false;
