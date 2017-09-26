@@ -1,6 +1,7 @@
 const Router = require('express-promise-router');
 
 const db = require('../db.js');
+const randomInt = require('../helpers/random_int');
 
 const router = new Router();
 
@@ -14,16 +15,19 @@ router.post('/setup', async (req, res) => {
   if (accountRowCount === 1) {
     console.log('Account query returned a single row where that email already exists');
     isNewAccount = false;
-    response = res.json({ success: false, message: 'User with that email already exists. Please double check your email and submit again!' });
+    response = res.json({ success: true, message: `Please check ${req.body.email} for a verification email!` });
   } else if (accountRowCount > 1) {
     console.log('Account query returned mutiple results');
     isNewAccount = false;
-    response = res.json({ success: false, message: 'The email you entered already exists. Please provide a unique email.' });
+    response = res.json({ success: false, message: 'An error has occurred. Please contact the support email.' });
   }
 
   if (isNewAccount) {
-    const newAccount = await db.query('INSERT INTO account (email, first_name, last_name, username) VALUES ($1, $2, $3, $4)', [req.body.email, req.body.firstName, req.body.lastName, req.body.userName]);
-    response = res.json({ success: true, message: 'User successfully created!' });
+    const randomID = randomInt(10000, 99999);
+    const randomUserName = `${req.body.firstName}${req.body.lastName}${randomID}`;
+
+    await db.query('INSERT INTO account (email, first_name, last_name, username) VALUES ($1, $2, $3, $4)', [req.body.email, req.body.firstName, req.body.lastName, randomUserName.toLowerCase()]);
+    response = res.json({ success: true, message: `Please check ${req.body.email} for a verification email!` });
   }
 
   return response;
