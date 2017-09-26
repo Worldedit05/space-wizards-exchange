@@ -24,9 +24,9 @@ router.post('/setup', async (req, res) => {
 
   if (isNewAccount) {
     const randomID = randomInt(10000, 99999);
-    const randomUserName = `${req.body.firstName}${req.body.lastName}${randomID}`;
+    const randomDisplayName = `${req.body.firstName}${req.body.lastName}${randomID}`;
 
-    await db.query('INSERT INTO account (email, first_name, last_name, username) VALUES ($1, $2, $3, $4)', [req.body.email, req.body.firstName, req.body.lastName, randomUserName.toLowerCase()]);
+    await db.query('INSERT INTO account (email, first_name, last_name, display_name) VALUES ($1, $2, $3, $4)', [req.body.email, req.body.firstName, req.body.lastName, randomDisplayName.toLowerCase()]);
     response = res.json({ success: true, message: `Please check ${req.body.email} for a verification email!` });
   }
 
@@ -34,13 +34,13 @@ router.post('/setup', async (req, res) => {
 });
 
 router.get('/check/:id', async (req, res) => {
-  const userName = await db.query('SELECT * FROM account WHERE username = ($1)', [req.params.id]);
+  const displayName = await db.query('SELECT * FROM account WHERE display_name = ($1)', [req.params.id]);
 
-  if (userName.rowCount > 0) {
-    return res.json({ isUserNameTaken: true, message: 'Username is taken' });
+  if (displayName.rowCount > 0) {
+    return res.json({ isDisplayNameTaken: true, message: 'Display name is taken' });
   }
 
-  return res.json({ isUserNameTaken: false, message: 'Username is available' });
+  return res.json({ isDisplayNameTaken: false, message: 'Display name is available' });
 });
 
 module.exports = router;
