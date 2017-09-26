@@ -45,6 +45,9 @@ router.get('/check/:id', async (req, res) => {
 
 router.get('/user/:id', async (req, res) => {
   const profileInfo = await db.query('SELECT * FROM account WHERE display_name = ($1)', [req.params.id]);
+  if (profileInfo.rowCount === 0) {
+    return res.status(404).send('Not Found');
+  }
   const accountId = profileInfo.rows[0].id;
   const accountCardData = await db.query('SELECT * FROM user_card_list WHERE account_id = ($1)', [accountId]);
 

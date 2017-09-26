@@ -3,6 +3,7 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import { Card, CardTitle } from 'material-ui/Card';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
 import Chip from 'material-ui/Chip';
+import axios from 'axios';
 
 import CardPanel from '../ProfileCard';
 import CardList from '../CardTable';
@@ -19,9 +20,38 @@ export default class Profile extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      data: {
+        account: {
+          city: null,
+          country: null,
+          display_name: '',
+          email: '',
+          first_name: '',
+          id: '',
+          last_name: '',
+          rating: null,
+          trade_notes: null,
+        },
+        cardData: [],
+      },
+    };
+
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
     this.getListItems = this.getListItems.bind(this);
+  }
+
+  componentDidMount() {
+    axios.get(`/api/account/user/${this.props.match.params.username}`).catch((error) => {
+      if (error.response.status === 404) {
+        this.props.history.push('/404');
+      }
+    }).then((response) => {
+      this.setState({
+        data: response.data,
+      });
+    });
   }
 
   handleClick(e) {
@@ -49,7 +79,7 @@ export default class Profile extends Component {
         <Row>
           <Col xs={0} sm={1} md={2} lg={3} />
           <Col xs>
-            <CardPanel onClick={this.handleClick} />
+            <CardPanel account={this.state.data.account} onClick={this.handleClick} />
           </Col>
           <Col xs={0} sm={1} md={2} lg={3} />
         </Row>
