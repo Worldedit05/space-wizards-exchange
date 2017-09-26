@@ -43,7 +43,7 @@ export default class Profile extends Component {
   }
 
   componentDidMount() {
-    axios.get(`/api/account/user/${this.props.match.params.username}`).catch((error) => {
+    axios.get(`/api/account/${this.props.match.params.username}`).catch((error) => {
       if (error.response.status === 404) {
         this.props.history.push('/404');
       }

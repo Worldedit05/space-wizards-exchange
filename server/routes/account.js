@@ -43,7 +43,7 @@ router.get('/check/:id', async (req, res) => {
   return res.json({ isDisplayNameTaken: false, message: 'Display name is available' });
 });
 
-router.get('/user/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   const profileInfo = await db.query('SELECT * FROM account WHERE display_name = ($1)', [req.params.id]);
   if (profileInfo.rowCount === 0) {
     return res.status(404).send('Not Found');

@@ -34,17 +34,17 @@ const ProfileCard = (props) => {
           <Col xs>
             <CardText>
               <List>
-                <ListItem primaryText="Rating" secondaryText="7 positive trades" leftIcon={<FontIcon className="material-icons">thumb_up</FontIcon>} />
-                <ListItem primaryText="Location" secondaryText="Austin, TX" onClick={props.onClick} leftIcon={<FontIcon className="material-icons">place</FontIcon>}/ >
+                <ListItem primaryText="Rating" secondaryText={`${account.rating} positive trades`} leftIcon={<FontIcon className="material-icons">thumb_up</FontIcon>} />
+                <ListItem primaryText="Location" secondaryText={`${account.city},${account.state}   ${account.country}`} onClick={props.onClick} leftIcon={<FontIcon className="material-icons">place</FontIcon>}/ >
               </List>
             </CardText>
           </ Col>
         </Row>
       </Grid>
       <Divider style={{ marginTop: '25px' }} />
-      <CardTitle title="Trade Notes" />
+      <CardTitle title="Trade Notes" subtitle="Special card or trade instructions go here"/>
       <CardText onClick={props.onClick}>
-        <p>Special card or trade instructions go here</p>
+        <p>{account.trade_notes}</p>
       </CardText>
     </Card>
   );
