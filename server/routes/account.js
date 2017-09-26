@@ -43,4 +43,12 @@ router.get('/check/:id', async (req, res) => {
   return res.json({ isDisplayNameTaken: false, message: 'Display name is available' });
 });
 
+router.get('/user/:id', async (req, res) => {
+  const profileInfo = await db.query('SELECT * FROM account WHERE display_name = ($1)', [req.params.id]);
+  const accountId = profileInfo.rows[0].id;
+  const accountCardData = await db.query('SELECT * FROM user_card_list WHERE account_id = ($1)', [accountId]);
+
+  return res.json({ account: profileInfo.rows[0], cardData: accountCardData.rows });
+});
+
 module.exports = router;
