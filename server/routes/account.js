@@ -33,10 +33,10 @@ router.get('/check/:id', async (req, res) => {
   const userName = await db.query('SELECT * FROM account WHERE username = ($1)', [req.params.id]);
 
   if (userName.rowCount > 0) {
-    return res.json({ success: false, message: 'Username is taken' });
+    return res.json({ isUserNameTaken: true, message: 'Username is taken' });
   }
 
-  return res.json({ success: true, message: 'Username is available' });
+  return res.json({ isUserNameTaken: false, message: 'Username is available' });
 });
 
 module.exports = router;
