@@ -10,11 +10,6 @@ import CardList from '../CardTable';
 
 import SwdCard from '../../js/constructors/swcard';
 
-const luke = new SwdCard('Luke Skywalker', 2, 25, 'legendary', 'AW');
-const han = new SwdCard('Han Solo', 1, 30, 'legendary', 'AW');
-const rey = new SwdCard('Rey', 3, 45, 'starter', 'AW');
-
-const cards = [luke, han, rey];
 /* eslint class-methods-use-this: 0 */
 export default class Profile extends Component {
   constructor(props) {
@@ -34,23 +29,65 @@ export default class Profile extends Component {
           trade_notes: null,
         },
         cardData: [],
+        haveList: [],
+        wantList: [],
       },
     };
 
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
-    this.getListItems = this.getListItems.bind(this);
+    this.getHaveListItems = this.getHaveListItems.bind(this);
+    this.getWantListItems = this.getWantListItems.bind(this);
   }
 
-  componentDidMount() {
-    axios.get(`/api/account/${this.props.match.params.username}`).catch((error) => {
+  async componentDidMount() {
+    const response = await axios.get(`/api/account/${this.props.match.params.username}`).catch((error) => {
       if (error.response.status === 404) {
         this.props.history.push('/404');
       }
-    }).then((response) => {
-      this.setState({
-        data: response.data,
-      });
+    });
+    const cardDataResponse = response.data.cardData;
+    const haveCardDataList = cardDataResponse.filter((card) => card.willing_to_trade === true);
+    const wantCardDataList = cardDataResponse.filter((card) => card.want === true);
+    const haveList = [];
+    const wantList = [];
+    let i;
+
+    /* eslint-disable */
+    /*TODO: Make this code better*/
+    for (i = 0; i < haveCardDataList.length; i += 1) {
+      let singleCardQuery = await axios.get(`/api/cards/${haveCardDataList[i].card_id}`);
+      singleCardQuery = singleCardQuery.data;
+      haveList.push(
+          new SwdCard(singleCardQuery.data.name,
+            haveCardDataList[i].quantity,
+            singleCardQuery.data.position,
+            singleCardQuery.data.rarity_name,
+            singleCardQuery.data.set_code
+          ));
+    }
+
+    for (i = 0; i < wantCardDataList.length; i += 1) {
+      let singleCardQuery = await axios.get(`/api/cards/${wantCardDataList[i].card_id}`);
+      singleCardQuery = singleCardQuery.data;
+      wantList.push(
+          new SwdCard(singleCardQuery.data.name,
+            wantCardDataList[i].quantity,
+            singleCardQuery.data.position,
+            singleCardQuery.data.rarity_name,
+            singleCardQuery.data.set_code
+          ));
+    }
+    /* eslint-enable */
+    const newStateObject = {
+      account: response.data.account,
+      cardData: response.data.cardData,
+      haveList,
+      wantList,
+    };
+
+    this.setState({
+      data: newStateObject,
     });
   }
 
@@ -59,17 +96,30 @@ export default class Profile extends Component {
     console.log('Clicked!');
   }
 
-  getListItems() {
-    const listItems = cards.map((card, index) =>
+  getWantListItems() {
+    const wantListItems = this.state.data.wantList.map((card, index) =>
       <TableRow key={index}>
         <TableRowColumn>{card.name}</TableRowColumn>
-        <TableRowColumn>x{card.quantity}</TableRowColumn>
-        <TableRowColumn>
+        <TableRowColumn style={{ width: '22%' }}>x{card.quantity}</TableRowColumn>
+        <TableRowColumn style={{ width: '35%' }}>
           <Chip backgroundColor={card.getRarityColor()}>{card.set}{card.number}</Chip>
         </TableRowColumn>
       </TableRow>,
     );
-    return listItems;
+    return wantListItems;
+  }
+
+  getHaveListItems() {
+    const haveListItems = this.state.data.haveList.map((card, index) =>
+      <TableRow key={index}>
+        <TableRowColumn >{card.name}</TableRowColumn>
+        <TableRowColumn style={{ width: '22%' }}>x{card.quantity}</TableRowColumn>
+        <TableRowColumn style={{ width: '35%' }}>
+          <Chip backgroundColor={card.getRarityColor()}>{card.set}{card.number}</Chip>
+        </TableRowColumn>
+      </TableRow>,
+    );
+    return haveListItems;
   }
 
   render() {
@@ -87,13 +137,13 @@ export default class Profile extends Component {
           <Col xs={0} sm={10} md={8} lg={5} >
             <Card style={{ marginTop: '50px', padding: '25px' }}>
               <CardTitle title="Have List" style={style}/>
-              <CardList getListItems={this.getListItems} showCheckboxes={false} />
+              <CardList getListItems={this.getHaveListItems} showCheckboxes={false} />
             </Card>
           </Col>
           <Col xs={0} sm={10} md={8} lg={5} >
             <Card style={{ marginTop: '50px', padding: '25px' }}>
               <CardTitle title="Want List" style={style}/>
-              <CardList getListItems={this.getListItems} showCheckboxes={false} />
+              <CardList getListItems={this.getWantListItems} showCheckboxes={false} />
             </Card>
           </Col>
         </Row>

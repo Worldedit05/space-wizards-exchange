@@ -15,8 +15,8 @@ const CardList = (props) => (
     >
       <TableRow>
         <TableHeaderColumn>Card Name</TableHeaderColumn>
-        <TableHeaderColumn>Quantity</TableHeaderColumn>
-        <TableHeaderColumn>Number | Set | Rarity</TableHeaderColumn>
+        <TableHeaderColumn style={{ width: '22%' }}>Quantity</TableHeaderColumn>
+        <TableHeaderColumn style={{ width: '35%' }}>Number | Set | Rarity</TableHeaderColumn>
       </TableRow>
     </TableHeader>
     <TableBody displayRowCheckbox={props.showCheckboxes}>
