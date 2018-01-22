@@ -12,6 +12,7 @@ export default class SearchBar extends Component {
   state = {
     dataSource: [],
     value: '',
+    lastKeypressTimeStamp: 0,
   };
 
   handleUpdateInput = (value) => {
@@ -21,14 +22,21 @@ export default class SearchBar extends Component {
       return;
     }
 
-    axios.get(`/api/search?q=${value}`).then((response) => {
-      response.data.forEach((card) => {
-        resultsArry.push(`${card.data.name} ${card.data.subtitle ? card.data.subtitle : ''} - ${card.data.set_name} #${card.data.position} - ${card.data.affiliation_name} - ${toTitleCase(card.data.faction_code)}`);
-      });
+    document.onkeydown = (event) => {
+      if (event.timeStamp - this.state.lastKeypressTimeStamp > 200) {
+        axios.get(`/api/search?q=${value}`).then((response) => {
+          response.data.forEach((card) => {
+            resultsArry.push(`${card.data.name} ${card.data.subtitle ? card.data.subtitle : ''} - ${card.data.set_name} #${card.data.position} - ${card.data.affiliation_name} - ${toTitleCase(card.data.faction_code)}`);
+          });
+          this.setState({
+            dataSource: resultsArry,
+          });
+        });
+      }
       this.setState({
-        dataSource: resultsArry,
+        lastKeypressTimeStamp: event.timeStamp,
       });
-    });
+    };
   };
 
   handleSelection = (value) => {

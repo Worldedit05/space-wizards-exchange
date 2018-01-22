@@ -45,50 +45,53 @@ export default class Profile extends Component {
       if (error.response.status === 404) {
         this.props.history.push('/404');
       }
+      return null;
     });
-    const cardDataResponse = response.data.cardData;
-    const haveCardDataList = cardDataResponse.filter((card) => card.willing_to_trade === true);
-    const wantCardDataList = cardDataResponse.filter((card) => card.want === true);
-    const haveList = [];
-    const wantList = [];
-    let i;
+    console.log(response);
+    if (response !== null) {
+      const cardDataResponse = response.data.cardData;
+      const haveCardDataList = cardDataResponse.filter((card) => card.willing_to_trade === true);
+      const wantCardDataList = cardDataResponse.filter((card) => card.want === true);
+      const haveList = [];
+      const wantList = [];
+      let i;
 
-    /* eslint-disable */
-    /*TODO: Make this code better*/
-    for (i = 0; i < haveCardDataList.length; i += 1) {
-      let singleCardQuery = await axios.get(`/api/cards/${haveCardDataList[i].card_id}`);
-      singleCardQuery = singleCardQuery.data;
-      haveList.push(
-          new SwdCard(singleCardQuery.data.name,
-            haveCardDataList[i].quantity,
-            singleCardQuery.data.position,
-            singleCardQuery.data.rarity_name,
-            singleCardQuery.data.set_code
-          ));
+      /* eslint-disable */
+      /*TODO: Make this code better*/
+      for (i = 0; i < haveCardDataList.length; i += 1) {
+        let singleCardQuery = await axios.get(`/api/cards/${haveCardDataList[i].card_id}`);
+        singleCardQuery = singleCardQuery.data;
+        haveList.push(
+            new SwdCard(singleCardQuery.data.name,
+              haveCardDataList[i].quantity,
+              singleCardQuery.data.position,
+              singleCardQuery.data.rarity_name,
+              singleCardQuery.data.set_code
+            ));
+      }
+
+      for (i = 0; i < wantCardDataList.length; i += 1) {
+        let singleCardQuery = await axios.get(`/api/cards/${wantCardDataList[i].card_id}`);
+        singleCardQuery = singleCardQuery.data;
+        wantList.push(
+            new SwdCard(singleCardQuery.data.name,
+              wantCardDataList[i].quantity,
+              singleCardQuery.data.position,
+              singleCardQuery.data.rarity_name,
+              singleCardQuery.data.set_code
+            ));
+      }
+      /* eslint-enable */
+      const newStateObject = {
+        account: response.data.account,
+        cardData: response.data.cardData,
+        haveList,
+        wantList,
+      };
+      this.setState({
+        data: newStateObject,
+      });
     }
-
-    for (i = 0; i < wantCardDataList.length; i += 1) {
-      let singleCardQuery = await axios.get(`/api/cards/${wantCardDataList[i].card_id}`);
-      singleCardQuery = singleCardQuery.data;
-      wantList.push(
-          new SwdCard(singleCardQuery.data.name,
-            wantCardDataList[i].quantity,
-            singleCardQuery.data.position,
-            singleCardQuery.data.rarity_name,
-            singleCardQuery.data.set_code
-          ));
-    }
-    /* eslint-enable */
-    const newStateObject = {
-      account: response.data.account,
-      cardData: response.data.cardData,
-      haveList,
-      wantList,
-    };
-
-    this.setState({
-      data: newStateObject,
-    });
   }
 
   handleClick(e) {

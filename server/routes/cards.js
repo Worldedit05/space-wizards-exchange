@@ -16,12 +16,6 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id', async (req, res) => {
-  const card = await db.query('SELECT * FROM card WHERE id = ($1)', [req.params.id]);
-  console.log(card.rows[0]);
-  return res.json(card.rows[0]);
-});
-
 router.get('/sync', async (req, res) => {
   const response = await axios.get('https://swdestinydb.com/api/public/cards/');
   const insertedCardsList = [];
@@ -77,6 +71,12 @@ router.get('/sync', async (req, res) => {
 
   const newResponse = cardsInserted ? res.json({ numberofNewCards, numberOfChangedCards, insertedCardsList }) : res.json('No_cards_were_changed');
   return newResponse;
+});
+
+router.get('/:id', async (req, res) => {
+  const card = await db.query('SELECT * FROM card WHERE id = ($1)', [req.params.id]);
+  console.log(card.rows[0]);
+  return res.json(card.rows[0]);
 });
 
 module.exports = router;
