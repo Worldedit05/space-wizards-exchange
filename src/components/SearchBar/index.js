@@ -24,6 +24,7 @@ export default class SearchBar extends Component {
 
     document.onkeydown = (event) => {
       if (event.timeStamp - this.state.lastKeypressTimeStamp > 200) {
+        // TODO: Need to move this over to Redis
         axios.get(`/api/search?q=${value}`).then((response) => {
           response.data.forEach((card) => {
             resultsArry.push(`${card.data.name} ${card.data.subtitle ? card.data.subtitle : ''} - ${card.data.set_name} #${card.data.position} - ${card.data.affiliation_name} - ${toTitleCase(card.data.faction_code)}`);
