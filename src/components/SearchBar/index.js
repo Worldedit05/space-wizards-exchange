@@ -12,7 +12,6 @@ export default class SearchBar extends Component {
   state = {
     dataSource: [],
     value: '',
-    lastKeypressTimeStamp: 0,
   };
 
   handleUpdateInput = (value) => {
@@ -22,22 +21,15 @@ export default class SearchBar extends Component {
       return;
     }
 
-    document.onkeydown = (event) => {
-      if (event.timeStamp - this.state.lastKeypressTimeStamp > 200) {
-        // TODO: Need to move this over to Redis
-        axios.get(`/api/search?q=${value}`).then((response) => {
-          response.data.forEach((card) => {
-            resultsArry.push(`${card.data.name} ${card.data.subtitle ? card.data.subtitle : ''} - ${card.data.set_name} #${card.data.position} - ${card.data.affiliation_name} - ${toTitleCase(card.data.faction_code)}`);
-          });
-          this.setState({
-            dataSource: resultsArry,
-          });
-        });
-      }
-      this.setState({
-        lastKeypressTimeStamp: event.timeStamp,
+
+    axios.get(`/api/search?q=${value}`).then((response) => {
+      response.data.forEach((card) => {
+        resultsArry.push(`${card.name} ${card.subtitle ? card.subtitle : ''} - ${card.set_name} #${card.position} - ${card.affiliation_name} - ${toTitleCase(card.faction_code)}`);
       });
-    };
+      this.setState({
+        dataSource: resultsArry,
+      });
+    });
   };
 
   handleSelection = (value) => {

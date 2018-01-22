@@ -26,6 +26,7 @@
       "react/jsx-uses-vars": 2,
       "react/react-in-jsx-scope": 2,
       "arrow-parens": ["error", "always"],
+      "no-underscore-dangle": [2, { "allow": ["_source"] }],
       "class-methods-use-this": [2, { "exceptMethods": ["componentDidMount",
         "componentDidUpdate",
         "componentWillMount",
