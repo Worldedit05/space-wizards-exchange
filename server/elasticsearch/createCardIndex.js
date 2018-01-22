@@ -1,6 +1,6 @@
 const esClient = require('../elasticsearch/connection.js');
 
-esClient.indices.create({ index: 'cards' }, (err, resp, status) => {
+esClient.indices.create({ index: 'card' }, (err, resp, status) => {
   if (err) {
     console.log(err);
   } else {

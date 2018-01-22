@@ -7,8 +7,8 @@ const addCards = async () => {
 
   Object.values(result.rows).forEach((card) => {
     esClient.index({
-      index: 'cards',
-      id: `${card.data.name}`,
+      index: 'card',
+      id: `${card.data.code}`,
       type: 'cardData',
       body: card.data,
     }, (err, resp, status) => {
@@ -17,5 +17,7 @@ const addCards = async () => {
     });
   });
 };
+
+addCards();
 
 module.exports = addCards;
